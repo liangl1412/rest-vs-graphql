@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Post</title>
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+</head>
+<body>
+    blog page 
+    <script>
+        var postObj = {};
+        var postId = "<%= postId %>";
+        $.ajax({
+            method: "GET",
+            url: "/api/getPost?id=" + postId,
+            success: function(data) {
+                postObj.title = data.title;
+                postObj.body = data.body;
+                var userId = data.uid;
+                $.ajax({
+                    method: "GET",
+                    url: "/api/getUser?id=" + userId,
+                    success: function(data) {
+                        postObj.userName = data.name;
+                        postObj.email = data.email;
+                    }
+                });
+            }
+        });
+
+        $.ajax({
+            method: "POST",
+            url: "/api/getComments/",
+            data: {postId: postId},
+            success: function(data) {
+                var comments = []
+                $.each( data, function( key, value ) {
+                    comments[key] = {body: value.body};
+                });
+                postObj.comments = comments;
+            }
+        });
+        
+    </script>
+</body>
+</html>
