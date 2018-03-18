@@ -1,7 +1,7 @@
 import express from 'express';
-import { addUser, getUser, getUsers} from '../models/user';
-import { addPost, getPost, getPosts } from '../models/post';
-import { addComment, getComments } from '../models/comment';
+import { addUser, getUser, getUsers} from './api/user';
+import { addPost, getPost, getPosts } from './api/post';
+import { addComment, getComments } from './api/comment';
 
 let router = express.Router();
 router.post('/user', (req, res) => {

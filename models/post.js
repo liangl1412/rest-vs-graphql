@@ -8,22 +8,4 @@ const postSchema = new Schema({
 });
 
 const Post = mongoose.model('Post', postSchema);
-
-const addPost = (post, callback) => {
-	Post.create(post, callback);
-}
-
-const getPost = (id, callback) => {
-	Post.findById(id, callback);
-}
-
-const getPosts = (options = {}, callback) => {
-	Post.find(options).exec(callback);
-}
-
-
-export { 
-	addPost,
-	getPost,
-	getPosts
-}
+export default Post;
