@@ -5,37 +5,45 @@ import {
 	GraphQLString,
 	GraphQLID
 } from 'graphql';
+import { UserType } from './user';
+import User from '../../models/user';
 
-export const postType = new GraphQLObjectType({
+export const PostType = new GraphQLObjectType({
 	name: 'Post',
 	fields: () => ({
 		_id: {
 			type: new GraphQLNonNull(GraphQLID)
 		},
-    uid: {
+    	uid: {
 			type: GraphQLString
 		},
 		title: {
 			type: GraphQLString
 		},
-    body: {
-      type: GraphQLString
-    }
+    	body: {
+      		type: GraphQLString
+		},
+		user: {
+			type: UserType,
+			resolve(root){
+				return User.findById(root.uid);
+			}
+		}
 	})
 })
 
 
-export const postInputType = new GraphQLInputObjectType({
-	name: 'PostInput',
-	fields: () => ({
-    uid: {
-			type: GraphQLString
-		},
-		title: {
-			type: GraphQLString
-		},
-		body: {
-			type: GraphQLString
-		},
-	})
-})
+// export const postInputType = new GraphQLInputObjectType({
+// 	name: 'PostInput',
+// 	fields: () => ({
+//     uid: {
+// 			type: GraphQLString
+// 		},
+// 		title: {
+// 			type: GraphQLString
+// 		},
+// 		body: {
+// 			type: GraphQLString
+// 		},
+// 	})
+// })

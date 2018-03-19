@@ -4,6 +4,9 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import apiRoute from './REST/route';
 
+import expressGraphQL from 'express-graphql';
+import schema from './graphql/schema';
+
 const app = express();
 
 mongoose.connect('mongodb://localhost/blog');
@@ -18,7 +21,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.set('view engine', 'ejs');
 
-app.use('/api', logger);
+app.use('/', logger);
 app.use('/api', apiRoute);
 
 
@@ -32,6 +35,11 @@ app.get('/post/:id', (req, res) => {
 		postId: req.params.id
 	});
 });
+
+app.use('/graphql', expressGraphQL({
+  schema:schema,
+  graphiql:true,
+}));
 
 // // GraphQL API
 // app.use('/graphql', graphqlHTTP(() => ({
