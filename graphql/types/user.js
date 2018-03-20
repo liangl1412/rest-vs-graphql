@@ -1,11 +1,7 @@
 import {
 	GraphQLObjectType,
 	GraphQLInputObjectType,
-	GraphQLNonNull,
-	GraphQLString,
-  GraphQLInt,
-	GraphQLID,
-	GraphQLList
+	GraphQLString
 } from 'graphql';
 
 // import PostModel from '../../models/post';
@@ -15,14 +11,14 @@ export const UserType = new GraphQLObjectType({
 	name: 'User',
 	fields: () => ({
 		_id: {
-			type: new GraphQLNonNull(GraphQLID)
+			type: GraphQLString
 		},
 		email: {
 			type: GraphQLString
 		},
-    name: {
-      type: GraphQLString
-    }
+		name: {
+		type: GraphQLString
+		}
     // posts: {
 		// 	type: new GraphQLList(postType),
 		// 	resolve(user) {

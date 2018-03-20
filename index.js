@@ -6,22 +6,27 @@ import apiRoute from './REST/route';
 
 import expressGraphQL from 'express-graphql';
 import schema from './graphql/schema';
-
+import Models from './models';
 const app = express();
 
 mongoose.connect('mongodb://localhost/blog');
 const db = mongoose.connection
-const logger = function(req, res, next) {
+const apiLogger = function(req, res, next) {
   console.log("api request hit");
   next(); // Passing the request to the next handler in the stack.
 }
+const graphLogger = function(req, res, next) {
+  console.log("graphql request hit");
+  next(); // Passing the request to the next handler in the stack.
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.set('view engine', 'ejs');
 
-app.use('/', logger);
+app.use('/api', apiLogger);
 app.use('/api', apiRoute);
 
 
@@ -36,17 +41,13 @@ app.get('/post/:id', (req, res) => {
 	});
 });
 
+app.use('/graphql', graphLogger);
 app.use('/graphql', expressGraphQL({
   schema:schema,
+  context: {Models},
   graphiql:true,
 }));
 
-// // GraphQL API
-// app.use('/graphql', graphqlHTTP(() => ({
-//   schema,
-//   graphiql: true,
-//   pretty: true
-// })))
 
 app.listen(3000, () => {
   console.log('running at port 3000...')
