@@ -3,6 +3,7 @@ import {
 	GraphQLSchema
 } from 'graphql';
 import { RootQuery } from './queries';
+import { mutation } from './mutations';
 // import mutations from './mutations';
 // import queries from './queries';
 
@@ -17,5 +18,6 @@ import { RootQuery } from './queries';
 // 	})
 // });
 export default new GraphQLSchema({
-    query: RootQuery
+	query: RootQuery,
+	mutation: mutation
 });

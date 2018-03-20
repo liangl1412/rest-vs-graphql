@@ -18,7 +18,7 @@ export const RootQuery= new GraphQLObjectType({
         }
       },
       resolve(root, args) {
-        return User.findById(args.id)
+        return User.findById(args.id).exec();
       }
     },
 
@@ -30,7 +30,7 @@ export const RootQuery= new GraphQLObjectType({
         }
       },
       resolve(root, args) {
-        return Post.findById(args.id)
+        return Post.findById(args.id).exec();
       }
     }
   }
