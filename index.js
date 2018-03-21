@@ -11,6 +11,7 @@ const app = express();
 
 mongoose.connect('mongodb://localhost/blog');
 const db = mongoose.connection
+mongoose.set('debug', true);
 const apiLogger = function(req, res, next) {
   console.log("api request hit");
   next(); // Passing the request to the next handler in the stack.

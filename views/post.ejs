@@ -26,7 +26,7 @@
                     method: "GET",
                     url: "/api/getUser?id=" + userId,
                     success: function(data) {
-                        postObj.userName = data.name;
+                        postObj.name = data.name;
                         postObj.email = data.email;
                     }
                 });
@@ -40,7 +40,17 @@
             success: function(data) {
                 var comments = []
                 $.each( data, function( key, value ) {
+                    let user = {};
+                    // $.ajax({
+                    //     method: "GET",
+                    //     url: "/api/getUser?id=" + value.uid,
+                    //     success: function(data) {
+                    //         user.name = data.name;
+                    //         user.email = data.email;
+                    //     }
+                    // });
                     comments[key] = {body: value.body};
+                    //comments[key] = {body: value.body, user:user};
                 });
                 postObj.comments = comments;
             }

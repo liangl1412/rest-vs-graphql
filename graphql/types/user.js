@@ -17,15 +17,8 @@ export const UserType = new GraphQLObjectType({
 			type: GraphQLString
 		},
 		name: {
-		type: GraphQLString
+			type: GraphQLString
 		}
-    // posts: {
-		// 	type: new GraphQLList(postType),
-		// 	resolve(user) {
-		// 		const { _id } = user
-		// 		return PostModel.find({ uid: _id }).exec()
-		// 	}
-		// },
 	})
 })
 
