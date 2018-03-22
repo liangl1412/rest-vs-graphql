@@ -7,6 +7,7 @@ import apiRoute from './REST/route';
 import expressGraphQL from 'express-graphql';
 import schema from './graphql/schema';
 import Models from './models';
+import { dataloaders } from './graphql/dataloader';
 const app = express();
 
 mongoose.connect('mongodb://localhost/blog');
@@ -45,7 +46,10 @@ app.get('/post/:id', (req, res) => {
 app.use('/graphql', graphLogger);
 app.use('/graphql', expressGraphQL({
   schema:schema,
-  context: {Models},
+  context: {
+    Models,
+    //dataloaders: dataloaders(Models.User)
+  },
   graphiql:true,
 }));
 

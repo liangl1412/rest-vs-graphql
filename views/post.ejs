@@ -55,6 +55,21 @@
                 postObj.comments = comments;
             }
         });
+        // var query = JSON.stringify({
+        //     "query": "query {post(id: \"5ab2b46d941953bf614e2617\") {title body user{name email}comments {body user {_id name email}} }}"
+
+        // });
+        // console.log(query);
+        // $.ajax({
+        //         method: "POST",
+        //         url: "/graphql",
+        //         contentType: 'application/json',
+        //         data: query,
+        //         success: function (data) {
+                    
+                    
+        //         }
+        //     });
         
     </script>
 </body>

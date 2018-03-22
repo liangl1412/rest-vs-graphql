@@ -29,6 +29,9 @@ export const CommentType = new GraphQLObjectType({
 			resolve(root){
 				return User.findById(root.uid).exec();
 			}
+			// resolve(root, args, { dataloaders }) {
+			// 	return dataloaders.userLoader.load(root.uid);
+			// }
 		}
 	})
 })

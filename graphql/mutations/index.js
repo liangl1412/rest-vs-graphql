@@ -7,6 +7,8 @@ import User from '../../models/user';
 import { UserType, userInputType } from '../types/user';
 import { PostType } from '../types/post';
 import Post from '../../models/post';
+import { CommentType } from '../types/comment';
+import Comment from '../../models/comment';
 
 export const mutation = new GraphQLObjectType({
   name:'Mutation',
@@ -34,6 +36,7 @@ export const mutation = new GraphQLObjectType({
           { $set: args },
           { new: true }
         )
+        //.then(dataloaders.userLoader.clear(args.id))
       }
     },
     addPost: {
@@ -45,6 +48,17 @@ export const mutation = new GraphQLObjectType({
       },
       resolve(root, args) {
         return new Post(args).save();
+      }
+    },
+    addComment: {
+      type: CommentType,
+      args: {
+        uid: { type: new GraphQLNonNull(GraphQLString) },
+        postId: { type: new GraphQLNonNull(GraphQLString) },
+        body: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve(root, args) {
+        return new Comment(args).save();
       }
     }
   })
