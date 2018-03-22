@@ -3,12 +3,9 @@ import {
   GraphQLString,
   GraphQLNonNull
 } from 'graphql';
-import User from '../../models/user';
-import { UserType, userInputType } from '../types/user';
+import { UserType } from '../types/user';
 import { PostType } from '../types/post';
-import Post from '../../models/post';
 import { CommentType } from '../types/comment';
-import Comment from '../../models/comment';
 
 export const mutation = new GraphQLObjectType({
   name:'Mutation',
@@ -19,8 +16,8 @@ export const mutation = new GraphQLObjectType({
         name: { type: new GraphQLNonNull(GraphQLString)},
         email: { type: new GraphQLNonNull(GraphQLString) }
       },
-      resolve(root, args) {
-        return new User(args).save();
+      resolve(root, args, { Models }) {
+        return new Models.User(args).save();
       }
     },
     updateUser: {
@@ -30,13 +27,13 @@ export const mutation = new GraphQLObjectType({
         name: { type: GraphQLString},
         email: { type: GraphQLString}
       },
-      resolve(root, args) {
-        return User.findByIdAndUpdate(
+      resolve(root, args, { Models, dataloaders }) {
+        return Models.User.findByIdAndUpdate(
           args.id,
           { $set: args },
           { new: true }
         )
-        //.then(dataloaders.userLoader.clear(args.id))
+        .then(dataloaders.userLoader.clear(args.id))
       }
     },
     addPost: {
@@ -46,8 +43,8 @@ export const mutation = new GraphQLObjectType({
         title: {type: new GraphQLNonNull(GraphQLString)},
         body: {type: new GraphQLNonNull(GraphQLString)}
       },
-      resolve(root, args) {
-        return new Post(args).save();
+      resolve(root, args, { Models }) {
+        return new Models.Post(args).save();
       }
     },
     addComment: {
@@ -57,8 +54,8 @@ export const mutation = new GraphQLObjectType({
         postId: { type: new GraphQLNonNull(GraphQLString) },
         body: { type: new GraphQLNonNull(GraphQLString) }
       },
-      resolve(root, args) {
-        return new Comment(args).save();
+      resolve(root, args, { Models }) {
+        return new Models.Comment(args).save();
       }
     }
   })

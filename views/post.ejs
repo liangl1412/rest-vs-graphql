@@ -41,16 +41,16 @@
                 var comments = []
                 $.each( data, function( key, value ) {
                     let user = {};
-                    // $.ajax({
-                    //     method: "GET",
-                    //     url: "/api/getUser?id=" + value.uid,
-                    //     success: function(data) {
-                    //         user.name = data.name;
-                    //         user.email = data.email;
-                    //     }
-                    // });
+                    $.ajax({
+                        method: "GET",
+                        url: "/api/getUser?id=" + value.uid,
+                        success: function(data) {
+                            user.name = data.name;
+                            user.email = data.email;
+                        }
+                    });
                     comments[key] = {body: value.body};
-                    //comments[key] = {body: value.body, user:user};
+                    comments[key] = {body: value.body, user:user};
                 });
                 postObj.comments = comments;
             }

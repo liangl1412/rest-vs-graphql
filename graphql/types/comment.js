@@ -3,7 +3,6 @@ import {
 	GraphQLString,
 } from 'graphql';
 import { UserType } from './user';
-import User from '../../models/user';
 
 
 export const CommentType = new GraphQLObjectType({
@@ -26,12 +25,9 @@ export const CommentType = new GraphQLObjectType({
         },
         user: {
 			type: UserType,
-			resolve(root){
-				return User.findById(root.uid).exec();
+			resolve(root, args, { dataloaders }) {
+				return dataloaders.userLoader.load(root.uid);
 			}
-			// resolve(root, args, { dataloaders }) {
-			// 	return dataloaders.userLoader.load(root.uid);
-			// }
 		}
 	})
 })

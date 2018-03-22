@@ -48,7 +48,7 @@ app.use('/graphql', expressGraphQL({
   schema:schema,
   context: {
     Models,
-    //dataloaders: dataloaders(Models.User)
+    dataloaders: dataloaders(Models.User)
   },
   graphiql:true,
 }));

@@ -64,6 +64,15 @@ router.post('/getComments', (req, res) => {
     });
 });
 
+router.get('/getComments', (req, res) => {
+    getComments({}, (err, comment) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(comment);
+    });
+});
+
 
 // router.post('/getUsers', (req, res) => {
 //     let options = req.body;

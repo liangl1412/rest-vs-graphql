@@ -4,8 +4,6 @@ import {
 	GraphQLString
 } from 'graphql';
 
-// import PostModel from '../../models/post';
-// import { postType } from './post';
 
 export const UserType = new GraphQLObjectType({
 	name: 'User',
@@ -22,15 +20,3 @@ export const UserType = new GraphQLObjectType({
 	})
 })
 
-
-// export const userInputType = new GraphQLInputObjectType({
-// 	name: 'UserInput',
-// 	fields: () => ({
-// 		email: {
-// 			type: GraphQLString
-// 		},
-// 		name: {
-// 			type: GraphQLString
-// 		}
-// 	})
-// })
