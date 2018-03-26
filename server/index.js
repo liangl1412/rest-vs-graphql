@@ -8,6 +8,7 @@ import expressGraphQL from 'express-graphql';
 import schema from './graphql/schema';
 import Models from './models';
 import { dataloaders } from './graphql/dataloader';
+import cors from 'cors';
 const app = express();
 
 mongoose.connect('mongodb://localhost/blog');
@@ -44,7 +45,8 @@ app.get('/post/:id', (req, res) => {
 });
 
 app.use('/graphql', graphLogger);
-app.use('/graphql', expressGraphQL({
+
+app.use('/graphql', cors(), expressGraphQL({
   schema:schema,
   context: {
     Models,
@@ -53,7 +55,6 @@ app.use('/graphql', expressGraphQL({
   graphiql:true,
 }));
 
-
-app.listen(3000, () => {
-  console.log('running at port 3000...')
+app.listen(4000, () => {
+  console.log('running at port 4000...')
 })

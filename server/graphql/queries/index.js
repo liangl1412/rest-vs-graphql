@@ -5,6 +5,7 @@ import {
 } from 'graphql';
 import { UserType } from "../types/user";
 import { PostType } from '../types/post';
+import graphqlFields from 'graphql-fields';
 
 export const RootQuery= new GraphQLObjectType({
   name:'RootQueryType',
@@ -16,8 +17,10 @@ export const RootQuery= new GraphQLObjectType({
           type: GraphQLString
         }
       },
-      resolve(root, args, { Models }) {
-        return Models.User.findById(args.id).exec();
+      resolve(root, args, { Models }, info) {
+        let parseInfo = (Object.keys(graphqlFields(info))).join(' ');
+        
+        return Models.User.findById(args.id).select(parseInfo).exec();
       }
     },
     users: {
