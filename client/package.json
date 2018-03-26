@@ -4,15 +4,16 @@
   "description": "example of using graphql",
   "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "eject": "react-scripts eject"
+    "start": "react-scripts start"
   },
   "repository": {},
   "author": "",
   "license": "''''''''''''''''''''''''''''''''",
   "dependencies": {
+    "apollo-boost": "^0.1.4",
     "axios": "^0.18.0",
     "react": "^16.0.0",
+    "react-apollo": "^2.1.1",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.7",
     "react-scripts": "^1.1.1",

@@ -1,5 +1,5 @@
 import axios from "axios";
-var a = `
+var dataQuery = `
     query{
         post(id:"5ab2b46d941953bf614e2617") {
             title
@@ -22,7 +22,7 @@ var a = `
 export function fetchBlog() {
     return function (dispatch) {
         dispatch({ type: "LOAD_DATA" });
-        axios.post("http://localhost:4000/graphql", {query:a})
+        axios.post("http://localhost:4000/graphql", { query: dataQuery})
             .then((response) => {
                 dispatch({ type: "LOAD_DATA_FULFILLED", payload: response.data })
             })

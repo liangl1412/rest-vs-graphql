@@ -1,17 +1,13 @@
 import React from 'react';
-import { fetchBlog } from './action';
+import { fetchBlog } from './actions/blog';
 import { connect } from "react-redux";
 
 function mapStateToProps(state) {
-    console.log(state);
-    return { blog: state.blog }
+    return { 
+        blog: state
+    }
 }
-@connect((store) => {
-    return {
-        messages: store.messages.messages,
-        users: store.users
-    };
-})
+
 class Blog extends React.Component {
     constructor(props) {
         super(props);
@@ -20,7 +16,6 @@ class Blog extends React.Component {
         this.props.dispatch(fetchBlog())
     }
     render() {
-        console.log(this.state);
         if (this.props.blog.fecting) {
             return (
                 <div>
@@ -30,9 +25,9 @@ class Blog extends React.Component {
         }
         else if (this.props.blog.fetched) {
             return (
-                <div>
-                    {this.props.blog.data.post}
-                </div>
+                <pre>
+                    {JSON.stringify(this.props.blog.blog.data.post,null,2)}
+                </pre>
             );
         }
         else {
