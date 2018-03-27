@@ -11,7 +11,9 @@
   "license": "''''''''''''''''''''''''''''''''",
   "dependencies": {
     "apollo-boost": "^0.1.4",
+    "apollo-cache-inmemory": "^1.1.12",
     "axios": "^0.18.0",
+    "graphql": "^0.13.2",
     "react": "^16.0.0",
     "react-apollo": "^2.1.1",
     "react-dom": "^16.0.0",

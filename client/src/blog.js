@@ -1,41 +1,41 @@
 import React from 'react';
-import { fetchBlog } from './actions/blog';
-import { connect } from "react-redux";
+import { gql } from "apollo-boost";
+import { Query } from "react-apollo";
 
-function mapStateToProps(state) {
-    return { 
-        blog: state
-    }
-}
 
-class Blog extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    componentWillMount() {
-        this.props.dispatch(fetchBlog())
-    }
-    render() {
-        if (this.props.blog.fecting) {
-            return (
-                <div>
-                    Loading data .......
-                </div>
-            )
+const GET_BLOG = gql`
+  {
+    post(id:"5ab2b46d941953bf614e2617") {
+        title
+        body
+        user {
+            name
+            email
         }
-        else if (this.props.blog.fetched) {
+        comments {
+            body
+            user {
+                name
+                email
+            }
+        }
+    }
+  }
+`;
+
+const Blog = () => (
+    <Query query={GET_BLOG}>
+        {({ loading, error, data }) => {
+            console.log(data);
+            if (loading) return <p>Loading...</p>;
+            if (error) return <p>Error load data </p>;
             return (
                 <pre>
-                    {JSON.stringify(this.props.blog.blog.data.post,null,2)}
+                    test
                 </pre>
             );
+            }
         }
-        else {
-            return (
-                <div></div>
-            )
-        }
-        
-    }
-}
-export default connect(mapStateToProps)(Blog);
+    </Query>
+)
+export default Blog;

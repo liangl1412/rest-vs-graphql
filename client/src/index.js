@@ -1,11 +1,21 @@
 import React from 'react';
 import { render } from 'react-dom'
 import Blog from './blog'
-import store from './store'
-import { Provider } from "react-redux"
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "react-apollo";
+import { InMemoryCache } from 'apollo-cache-inmemory';
+
+
+
+
+const client = new ApolloClient({
+    uri: "http://localhost:4000/graphql",
+    cache: new InMemoryCache()
+});
+
 
 render((
-    <Provider store={store}>
+    <ApolloProvider client={client}>
         <Blog />
-    </Provider>
+    </ApolloProvider>
 ), document.getElementById('root'));
