@@ -2,7 +2,8 @@ const initState = {
     blog: {},
     fecting: false,
     fetched: false,
-    error: null
+    error: null,
+    isRead:false
 }
 export default function blogReducer(state = initState, action) {
     switch (action.type) {

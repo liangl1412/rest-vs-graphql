@@ -17,14 +17,14 @@
         var postId = "<%= postId %>";
         $.ajax({
             method: "GET",
-            url: "/api/getPost?id=" + postId,
+            url: "/api/post/" + postId,
             success: function(data) {
                 postObj.title = data.title;
                 postObj.body = data.body;
                 var userId = data.uid;
                 $.ajax({
                     method: "GET",
-                    url: "/api/getUser?id=" + userId,
+                    url: "/api/user/" + userId,
                     success: function(data) {
                         postObj.name = data.name;
                         postObj.email = data.email;
@@ -34,16 +34,15 @@
         });
 
         $.ajax({
-            method: "POST",
-            url: "/api/getComments/",
-            data: {postId: postId},
+            method: "GET",
+            url: "/api/comments/" + postId,
             success: function(data) {
                 var comments = []
                 $.each( data, function( key, value ) {
                     let user = {};
                     $.ajax({
                         method: "GET",
-                        url: "/api/getUser?id=" + value.uid,
+                        url: "/api/user/" + value.uid,
                         success: function(data) {
                             user.name = data.name;
                             user.email = data.email;
@@ -56,7 +55,7 @@
             }
         });
         // var query = JSON.stringify({
-        //     "query": "query {post(id: \"5ab2b46d941953bf614e2617\") {title body user{name email}comments {body user {_id name email}} }}"
+        //     "query": "query {post(id: \"5b7a5e7a55235801141fcc4d\") {title body user{name email}comments {body user {_id name email}} }}"
 
         // });
         // console.log(query);

@@ -1,7 +1,7 @@
 import express from 'express';
-import { addUser, getUser, getUsers} from './api/user';
-import { addPost, getPost, getPosts } from './api/post';
-import { addComment, getComments } from './api/comment';
+import { addUser, getUser } from './api/user';
+import { addPost, getPost } from './api/post';
+import { addComment, getComment, getComments } from './api/comment';
 
 let router = express.Router();
 router.post('/user', (req, res) => {
@@ -14,8 +14,8 @@ router.post('/user', (req, res) => {
     });
 });
 
-router.get('/getUser', (req, res) => {
-    getUser(req.query.id, (err, user) => {
+router.get('/user/:_id', (req, res) => {
+    getUser(req.params._id, (err, user) => {
         if(err){
             res.send(err);
         }
@@ -34,8 +34,8 @@ router.post('/post', (req, res) => {
     });
 });
 
-router.get('/getPost', (req, res) => {
-    getPost(req.query.id, (err, post) => {
+router.get('/post/:_id', (req, res) => {
+    getPost(req.params._id, (err, post) => {
         if(err){
             res.send(err);
         }
@@ -53,47 +53,22 @@ router.post('/comment', (req, res) => {
     });
 });
 
-
-router.post('/getComments', (req, res) => {
-    let options = req.body;
-    getComments(options, (err, comment) => {
+router.get('/comment/:_id', (req, res) => {
+    getComment(req.params._id, (err, post) => {
         if(err){
             res.send(err);
         }
-        res.json(comment);
+        res.json(post);
     });
 });
 
-router.get('/getComments', (req, res) => {
-    getComments({}, (err, comment) => {
+router.get('/comments/:_id', (req, res) => {
+    getComments({postId: req.params._id}, (err, comment) => {
         if (err) {
             res.send(err);
         }
         res.json(comment);
     });
 });
-
-
-// router.post('/getUsers', (req, res) => {
-//     let options = req.body;
-//     console.log(options);
-//     getUsers(options, (err, user) => {
-//         if(err){
-//             res.send(err);
-//         }
-//         res.json(user);
-//     });
-// });
-
-
-// router.post('/getPosts', (req, res) => {
-//     let options = req.body;
-//     getPosts(options, (err, post) => {
-//         if(err){
-//             res.send(err);
-//         }
-//         res.json(post);
-//     });
-// });
 
 export default router;

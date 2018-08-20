@@ -25,9 +25,12 @@ class Blog extends React.Component {
         }
         else if (this.props.blog.fetched) {
             return (
-                <pre>
-                    {JSON.stringify(this.props.blog.blog.data.post,null,2)}
-                </pre>
+                <div>
+                    <pre>
+                        {JSON.stringify(this.props.blog.blog.data.post,null,2)}
+                    </pre>
+                    <button>Mark as Read</button>
+                </div>
             );
         }
         else {
