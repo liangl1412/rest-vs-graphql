@@ -1,7 +1,7 @@
 {
   "name": "restvsgraphql",
   "version": "1.0.0",
-  "description": "example of using graphql",
+  "description": "example of usisng graphql",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js --exec babel-node --presets  babel-preset-env --ignore 'node_modules/*'"
