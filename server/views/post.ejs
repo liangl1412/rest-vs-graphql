@@ -13,62 +13,66 @@
 <body>
     blog page 
     <script>
-        var postObj = {};
-        var postId = "<%= postId %>";
-        $.ajax({
-            method: "GET",
-            url: "/api/post/" + postId,
-            success: function(data) {
-                postObj.title = data.title;
-                postObj.body = data.body;
-                var userId = data.uid;
-                $.ajax({
-                    method: "GET",
-                    url: "/api/user/" + userId,
-                    success: function(data) {
-                        postObj.name = data.name;
-                        postObj.email = data.email;
+        let postObj = {};
+        const postId = "<%= postId %>";
+        const enableGraphql = <%= enableGraphql %>
+        if (enableGraphql) {
+            const query = `query {post(id:"${postId}") {title body user{name email}comments {body user {_id name email}} }}`
+            const queryString = JSON.stringify({
+                "query": query
+            });
+            $.ajax({
+                    method: "POST",
+                    url: "/graphql",
+                    contentType: 'application/json',
+                    data: queryString,
+                    success: function (data) {
+                        postObj = data.data.post;
                     }
                 });
-            }
-        });
-
-        $.ajax({
-            method: "GET",
-            url: "/api/comments/" + postId,
-            success: function(data) {
-                var comments = []
-                $.each( data, function( key, value ) {
-                    let user = {};
+        } else {
+            $.ajax({
+                method: "GET",
+                url: `/api/post?postId=${postId}`,
+                success: function(data) {
+                    postObj.title = data.title;
+                    postObj.body = data.body;
+                    const userId = data.uid;
                     $.ajax({
                         method: "GET",
-                        url: "/api/user/" + value.uid,
+                        url: `/api/user?userId=${userId}`,
                         success: function(data) {
-                            user.name = data.name;
-                            user.email = data.email;
+                            postObj.name = data.name;
+                            postObj.email = data.email;
                         }
                     });
-                    comments[key] = {body: value.body};
-                    comments[key] = {body: value.body, user:user};
-                });
-                postObj.comments = comments;
-            }
-        });
-        // var query = JSON.stringify({
-        //     "query": "query {post(id: \"5b7a5e7a55235801141fcc4d\") {title body user{name email}comments {body user {_id name email}} }}"
+                }
+            });
 
-        // });
-        // console.log(query);
-        // $.ajax({
-        //         method: "POST",
-        //         url: "/graphql",
-        //         contentType: 'application/json',
-        //         data: query,
-        //         success: function (data) {
-                    
-                    
-        //         }
-        //     });
+            $.ajax({
+                method: "GET",
+                url: `/api/postComments?postId=${postId}`,
+                success: function(data) {
+                    const comments = []
+                    $.each( data, function( key, value ) {
+                        let user = {};
+                        $.ajax({
+                            method: "GET",
+                            url: `/api/user?userId=${value.uid}`,
+                            success: function(data) {
+                                user.name = data.name;
+                                user.email = data.email;
+                            }
+                        });
+                        comments[key] = {body: value.body};
+                        comments[key] = {body: value.body, user:user};
+                    });
+                    postObj.comments = comments;
+                }
+            });
+        }
+        
+        
         
     </script>
 </body>

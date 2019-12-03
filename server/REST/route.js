@@ -14,8 +14,8 @@ router.post('/user', (req, res) => {
     });
 });
 
-router.get('/user/:_id', (req, res) => {
-    getUser(req.params._id, (err, user) => {
+router.get('/user', (req, res) => {
+    getUser(req.query.userId, (err, user) => {
         if(err){
             res.send(err);
         }
@@ -34,8 +34,8 @@ router.post('/post', (req, res) => {
     });
 });
 
-router.get('/post/:_id', (req, res) => {
-    getPost(req.params._id, (err, post) => {
+router.get('/post', (req, res) => {
+    getPost(req.query.postId, (err, post) => {
         if(err){
             res.send(err);
         }
@@ -53,8 +53,8 @@ router.post('/comment', (req, res) => {
     });
 });
 
-router.get('/comment/:_id', (req, res) => {
-    getComment(req.params._id, (err, post) => {
+router.get('/comment', (req, res) => {
+    getComment(req.query.postId, (err, post) => {
         if(err){
             res.send(err);
         }
@@ -62,8 +62,8 @@ router.get('/comment/:_id', (req, res) => {
     });
 });
 
-router.get('/comments/:_id', (req, res) => {
-    getComments({postId: req.params._id}, (err, comment) => {
+router.get('/postComments', (req, res) => {
+    getComments({postId: req.query.postId}, (err, comment) => {
         if (err) {
             res.send(err);
         }

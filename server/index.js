@@ -37,9 +37,10 @@ app.get('/', (req, res) => {
 });
 
 
-app.get('/post/:id', (req, res) => {
+app.get('/post', (req, res) => {
   res.render('post',{
-		postId: req.params.id
+    postId: '5dded3ab2ad8f82eb8937aab',
+    enableGraphql: false
 	});
 });
 

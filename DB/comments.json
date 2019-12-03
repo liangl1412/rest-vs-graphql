@@ -1,0 +1,3 @@
+{"_id":{"$oid":"5dded3e42ad8f82eb8937aac"},"uid":"5ddec9cc2ad8f82eb8937aaa","postId":"5dded3ab2ad8f82eb8937aab","body":"Thi is comment 1","create_date":{"$date":{"$numberLong":"1574884324990"}},"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5dded3f52ad8f82eb8937aad"},"uid":"5dded33bb0023409443bdf9a","postId":"5dded3ab2ad8f82eb8937aab","body":"Thi is comment 2","create_date":{"$date":{"$numberLong":"1574884341389"}},"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5dded3fd2ad8f82eb8937aae"},"uid":"5dded33bb0023409443bdf9a","postId":"5dded3ab2ad8f82eb8937aab","body":"Thi is comment 3","create_date":{"$date":{"$numberLong":"1574884349218"}},"__v":{"$numberInt":"0"}}
